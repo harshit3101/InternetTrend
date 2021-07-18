@@ -1,0 +1,25 @@
+/* You can add global styles to this file, and also import other style files */
+
+// @import './assets/scss/variables';
+// @import './assets/scss/bootswatch';
+
+// @import './assets/css/bootstrap.css';
+
+body {
+    padding-top: 50px;
+}
+
+.placeholders {
+    margin-bottom: 30px;
+    text-align: center;
+}
+.placeholders h4 {
+    margin-bottom: 0;
+}
+.placeholder {
+    margin-bottom: 20px;
+}
+.placeholder img {
+    display: inline-block;
+    border-radius: 50%;
+}

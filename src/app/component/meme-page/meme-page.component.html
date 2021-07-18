@@ -1,0 +1,9 @@
+
+<div *ngFor="let memePost of memePosts">
+    <div class="row memePostHolders">
+      <img src= "{{ memePost.url}}">
+    </div>
+  </div>
+
+  <button class="buttonBottom" (click)="pushMemes()">More Memes</button>
+  <div (scroll)="scrollHandler()"></div>
