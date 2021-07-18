@@ -1,13 +1,17 @@
-.memePostHolders {
-    width:200 px;
-    height:200 px;
+.parent {
+    width: 70%;
+    padding: 15 px;
     border: solid 2px rgb(89, 88, 90);
-    padding: 5px;
-    // object-fit:fill;
-}
-
+  }
+  
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
 
 .buttonBottom{
     position:relative;
+    padding: 15 px;
     bottom: 0%;
 }
