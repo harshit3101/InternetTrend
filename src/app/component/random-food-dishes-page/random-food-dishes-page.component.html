@@ -1,10 +1,25 @@
 
+ <div class="container-fluid pt-3 bg-dark text-white">
+    <div class="row">
+        <div class= "panel-custom col-md-6">
+            <div class="row custom-input-dishName">
+                <input id="dishName" type="text" class="form-control" [(ngModel)]="dishName" />
+            </div>
+            <div class="row food-custom-row">
+                <button class="buttonBottom" (click)="getRandomFoodPosts()">Random Food Dish</button>
+                <button class="buttonBottom" (click)="getSearchTextFoodPosts()">Search Dish</button>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="parent">
+                <img width="400" height="400" src="{{randomFoodDishPostLink}}">
+            </div>
+        </div>
+    </div>
     
- <div class="parent">
-      <img width="400" height="400" src="{{randomFoodDishPostLink}}">
-</div>
-     
-  
-<button class="buttonBottom" (click)="pushRandomFoodPosts()">Other Food Dish</button>
+  </div> 
+
+ 
     <!-- <div (scroll)="scrollHandler()"></div>
    -->

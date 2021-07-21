@@ -11,6 +11,7 @@ import { LandingPageComponent } from './component/landing-page/landing-page.comp
 import { RightSideToolbarComponent } from './component/right-side-toolbar/right-side-toolbar.component';
 import { MemePageComponent } from './component/meme-page/meme-page.component';
 import { RandomFoodDishesPageComponent } from './component/random-food-dishes-page/random-food-dishes-page.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { RandomFoodDishesPageComponent } from './component/random-food-dishes-pa
   imports: [
     BrowserModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule    
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -12,6 +12,7 @@ import { RandomFoodDishesService } from 'src/app/services/random-food-dishes.ser
 export class RandomFoodDishesPageComponent implements OnInit, OnDestroy {
 
   public randomFoodDishPostLink: string;
+  public dishName:string;
   private randomFoodDishSubscription: Subscription;
 
   constructor(private randomFoodDishesService: RandomFoodDishesService) {
@@ -35,12 +36,16 @@ export class RandomFoodDishesPageComponent implements OnInit, OnDestroy {
           .getRandomFoodPosts()
           .subscribe(nextObsever, errorObsever);
           
-    this.pushRandomFoodPosts();
+    this.getRandomFoodPosts();
   }
   
 
-  pushRandomFoodPosts() {
+  getRandomFoodPosts() {
     this.randomFoodDishesService.pushRandomFoodPosts();
+  }
+
+  getSearchTextFoodPosts(){
+    
   }
 
   @HostListener('window:scroll', ['$event']) 
