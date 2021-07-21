@@ -45,7 +45,7 @@ export class RandomFoodDishesPageComponent implements OnInit, OnDestroy {
   }
 
   getSearchTextFoodPosts(){
-    
+    alert("Your Input is "+this.dishName + ". Sorry for inconvinience we have not added search feature yet!!" );
   }
 
   @HostListener('window:scroll', ['$event']) 
