@@ -1,7 +1,7 @@
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { PostModel } from 'src/app/models/post-model';
-import { PostsFeederService } from 'src/app/services/posts-feeder.service';
+import { MemeGeneraterService } from 'src/app/services/meme-generater.service';
 
 @Component({
   selector: 'app-meme-page',
@@ -13,9 +13,7 @@ export class MemePageComponent implements OnInit, OnDestroy {
   public memePosts: PostModel[] = [];
   private memeFeedSubscription: Subscription;
 
-  mydata: string = 'this is me';
-
-  constructor(private postsFeeder: PostsFeederService) {
+  constructor(private memeGeneraterService: MemeGeneraterService) {
     this.subscribeToMemes();
    }
 
@@ -24,7 +22,6 @@ export class MemePageComponent implements OnInit, OnDestroy {
 
   private subscribeToMemes() {
     const nextObsever = (postModel: PostModel) => {
-      console.log("nextObsever"+ postModel.url);
       this.memePosts.push(postModel);
     };
 
@@ -32,7 +29,7 @@ export class MemePageComponent implements OnInit, OnDestroy {
       console.log("error in subscribeToMemes ");
     }
   
-    this.memeFeedSubscription = this.postsFeeder
+    this.memeFeedSubscription = this.memeGeneraterService
           .getMemePosts()
           .subscribe(nextObsever, errorObsever);
           
@@ -41,14 +38,22 @@ export class MemePageComponent implements OnInit, OnDestroy {
   
 
   pushMemes() {
-    this.postsFeeder.pushMemesPosts();
+    this.memeGeneraterService.pushMemesPosts();
   }
 
   @HostListener('window:scroll', ['$event']) 
   scrollHandler() {
     console.debug("Scroll Event");
-    // this.pushMemes();
     
+    //In chrome and some browser scroll is given to body tag
+    let pos = (document.documentElement.scrollTop || document.body.scrollTop) + document.documentElement.offsetHeight;
+    let max = document.documentElement.scrollHeight;
+    if(pos == max )   {
+      //Do your action here
+      console.debug("ReAched bottom");
+      this.pushMemes();
+    }
+        
   }
       
   ngOnDestroy(): void {

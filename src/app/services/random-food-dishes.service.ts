@@ -3,13 +3,14 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { ApiEndpoints } from '../constants/api-endpoints';
 import { AbstractExternalEndpointsService } from '../interfaces/abstract/abstract-external-endpoints-service';
-import { MemeApiResponse } from '../models/meme-api-response';
+
 import { PostModel } from '../models/post-model';
+import { RandomFoodApiResponse } from '../models/random-food-api-response';
 
 @Injectable({
   providedIn: 'root'
 })
-export class MemeGeneraterService extends AbstractExternalEndpointsService<MemeApiResponse, PostModel>{
+export class RandomFoodDishesService extends AbstractExternalEndpointsService<RandomFoodApiResponse, PostModel> {
 
   private readonly mySubject: Subject<PostModel>  = new Subject<PostModel>();
 
@@ -17,33 +18,32 @@ export class MemeGeneraterService extends AbstractExternalEndpointsService<MemeA
     super();
   }
 
-  getMemePosts() : Observable<PostModel> {
+  getRandomFoodPosts() : Observable<PostModel> {
     return this.getMySubject().asObservable();
   }
 
-  pushMemesPosts() {
+  pushRandomFoodPosts() {
     this.pushPost();
   }
 
-
-  callApi(): Observable<MemeApiResponse> {
-    return this.http.get<MemeApiResponse>(ApiEndpoints.MEME_API_HEREOKU);
+  callApi(): Observable<RandomFoodApiResponse> {
+    return this.http.get<RandomFoodApiResponse>(ApiEndpoints.RANDOM_FOOD_DISHES_API_HEREOKU);
   }
 
   getModelType(): string {
-    return 'Meme';
+    return 'RandomFoodDish';
   }
   
   getMySubject(): Subject<PostModel> {
     return this.mySubject;
   }
 
-  myOnNextObserver(res: MemeApiResponse): void {
-      const postModel = new PostModel();
-      postModel.url = res.url;
-      postModel.type = 'Meme';
-      this.mySubject.next(postModel);
+  myOnNextObserver(res: RandomFoodApiResponse): void {
+    const postModel = new PostModel();
+      postModel.url = res.image;
+      postModel.type = this.getModelType();
+
+      this.getMySubject().next(postModel);
   }
 
-  
 }
