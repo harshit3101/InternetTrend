@@ -19,7 +19,7 @@ export class PostsFeederService {
   }
 
   pushYotubeVideos() {
-    const postModel = new PostModel();
+    const postModel = new PostModel("postFeed");
     postModel.data = 'tyes';
     this.videosSubject.next(postModel);
   }

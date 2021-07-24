@@ -14,6 +14,7 @@ export class RandomFoodDishesPageComponent implements OnInit, OnDestroy {
   public randomFoodDishPostLink: string;
   public dishName:string;
   private randomFoodDishSubscription: Subscription;
+  private categoryFoodDishSubscription: Subscription;
 
   constructor(private randomFoodDishesService: RandomFoodDishesService) {
     this.subscribeToRandomFoodDishes();
@@ -35,6 +36,10 @@ export class RandomFoodDishesPageComponent implements OnInit, OnDestroy {
     this.randomFoodDishSubscription = this.randomFoodDishesService
           .getRandomFoodPosts()
           .subscribe(nextObsever, errorObsever);
+
+    this.categoryFoodDishSubscription = this.randomFoodDishesService
+          .getCategoryFoodPosts()
+          .subscribe(nextObsever, errorObsever);      
           
     this.getRandomFoodPosts();
   }
@@ -44,8 +49,10 @@ export class RandomFoodDishesPageComponent implements OnInit, OnDestroy {
     this.randomFoodDishesService.pushRandomFoodPosts();
   }
 
+
   getSearchTextFoodPosts(){
-    alert("Your Input is "+this.dishName + ". Sorry for inconvinience we have not added search feature yet!!" );
+    // alert("Your Input is "+this.dishName + ". Sorry for inconvinience we have not added search feature yet!!" );
+    this.randomFoodDishesService.pushCategoryFoodPosts(this.dishName);
   }
 
   @HostListener('window:scroll', ['$event']) 

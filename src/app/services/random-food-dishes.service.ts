@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { ApiEndpoints } from '../constants/api-endpoints';
+import { MyConstants } from '../constants/my-constants';
 import { AbstractExternalEndpointsService } from '../interfaces/abstract/abstract-external-endpoints-service';
 
 import { PostModel } from '../models/post-model';
@@ -11,39 +12,48 @@ import { RandomFoodApiResponse } from '../models/random-food-api-response';
   providedIn: 'root'
 })
 export class RandomFoodDishesService extends AbstractExternalEndpointsService<RandomFoodApiResponse, PostModel> {
-
-  private readonly mySubject: Subject<PostModel>  = new Subject<PostModel>();
+  
+  private readonly randomFoodDishSubject: Subject<PostModel> = new Subject<PostModel>();
+  private readonly categoryFoodDishSubject: Subject<PostModel> = new Subject<PostModel>();
 
   constructor(private http: HttpClient) { 
-    super();
+    super(http);
   }
 
   getRandomFoodPosts() : Observable<PostModel> {
-    return this.getMySubject().asObservable();
+    return this.getMySubject("RandomFoodDish").asObservable();
   }
 
   pushRandomFoodPosts() {
-    this.pushPost();
+    let apiEndpoint: string =  ApiEndpoints.RANDOM_FOOD_DISHES_API_HEREOKU;
+    this.pushPost("RandomFoodDish", apiEndpoint, MyConstants.GET, "");
   }
 
-  callApi(): Observable<RandomFoodApiResponse> {
-    return this.http.get<RandomFoodApiResponse>(ApiEndpoints.RANDOM_FOOD_DISHES_API_HEREOKU);
+  getCategoryFoodPosts() : Observable<PostModel> {
+    return this.getMySubject("CategoryFoodDish").asObservable();
   }
 
-  getModelType(): string {
-    return 'RandomFoodDish';
-  }
-  
-  getMySubject(): Subject<PostModel> {
-    return this.mySubject;
+  pushCategoryFoodPosts(data: string) {
+    let apiEndpoint: string =  ApiEndpoints.CATEGORY_FOOD_DISHES_API_HEREOKU + '/' + data.toLowerCase();
+    console.log("Harshit test endpoint"+ apiEndpoint);
+    this.pushPost("CategoryFoodDish", apiEndpoint, MyConstants.GET, "");
   }
 
-  myOnNextObserver(res: RandomFoodApiResponse): void {
-    const postModel = new PostModel();
-      postModel.url = res.image;
-      postModel.type = this.getModelType();
+  getMySubject(apiType: string): Subject<PostModel> {
+    if(apiType === "RandomFoodDish") {
+      return this.randomFoodDishSubject;
+    }else if(apiType === "CategoryFoodDish") {
+      return this.categoryFoodDishSubject;
+    }
 
-      this.getMySubject().next(postModel);
+    return this.randomFoodDishSubject;
+  }
+
+  myOnNextObserver(res: RandomFoodApiResponse, apiType: string): void {
+    const postModel = new PostModel(apiType);
+    postModel.url = res.image;
+
+    this.getMySubject(apiType).next(postModel);
   }
 
 }
