@@ -10,7 +10,7 @@ import { PostModel } from '../models/post-model';
 @Injectable({
   providedIn: 'root'
 })
-export class MemeGeneraterService extends AbstractExternalEndpointsService<MemeApiResponse, PostModel>{
+export class MemeGeneraterService extends AbstractExternalEndpointsService<MemeApiResponse, PostModel> {
 
   private readonly randomMemeSubject: Subject<PostModel>  = new Subject<PostModel>();
 

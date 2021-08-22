@@ -52,7 +52,7 @@ export abstract class AbstractExternalEndpointsService<ApiResponseType, PostMode
     private onErrorObserver(apiType: string){
         const errorObserver = ((error: any) => {    
           console.error(apiType + ' Request failed with error')
-          alert("Something went wrong for the request. Response is  "+ error);
+          alert("Something went wrong for the request " + apiType +" Response is  "+ error);
         });
     
         return errorObserver;

@@ -64,5 +64,6 @@ export class RandomFoodDishesPageComponent implements OnInit, OnDestroy {
       
   ngOnDestroy(): void {
     this.randomFoodDishSubscription.unsubscribe();
+    this.categoryFoodDishSubscription.unsubscribe();
   }
 }
