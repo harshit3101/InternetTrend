@@ -10,11 +10,11 @@ import { InspirationalQuoteService } from 'src/app/services/inspirational-quote.
 })
 export class LandingPageComponent implements OnInit {
 
-  public quote: string;
+  public quote: string = 'Never stop trying!!';
   private inspirationalQuoteSubscription: Subscription;
 
   constructor(private inspirationalQuoteService: InspirationalQuoteService) { 
-    this.subscribeToInspirationalQuote();
+    // this.subscribeToInspirationalQuote();
   }
 
   ngOnInit(): void {
@@ -43,7 +43,9 @@ export class LandingPageComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    this.inspirationalQuoteSubscription.unsubscribe();
+    if(this.inspirationalQuoteSubscription){
+      this.inspirationalQuoteSubscription.unsubscribe();
+    }
   }
 
 }

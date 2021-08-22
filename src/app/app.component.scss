@@ -1,13 +1,18 @@
 .main {
-    padding: 10px;
+    padding: 30px;
 }
 
 @media (min-width: 768px) {
     .main {
         padding-right: 40px;
-        padding-left: 20px;
+        padding-left: 40px;
     }
 }
 .main .page-header {
     margin-top: 20;
+}
+
+.container-fluid {
+    display: flex;
+    justify-content: center;
 }
